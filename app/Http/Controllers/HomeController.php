@@ -9,7 +9,7 @@ use App\Notifications\WelcomeNotification;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Notification;
 use Inertia\Inertia;
-use Illuminate\Support\Facades\DB;
+// use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -28,7 +28,7 @@ class HomeController extends Controller
             'title' => 'post-title',
             'slug' => 'chat'
         ];
-        $user->notify(new WelcomeNotification($post));
+        // $user->notify(new WelcomeNotification($post));
         //Notification::send($user, new WelcomeNotification($post));
         return Inertia::render('Home');
     }
@@ -37,7 +37,7 @@ class HomeController extends Controller
         if(Auth::check()){
             $user = Auth::user();
             $aux = User::find(3);
-            $user->notify(new UserFollowNotification($aux));
+            // $user->notify(new UserFollowNotification($aux));
         }else{
             return 'no hay user';
         }
