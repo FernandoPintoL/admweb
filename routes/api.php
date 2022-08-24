@@ -5,6 +5,7 @@ use App\Http\Controllers\IntArticuloController;
 use App\Http\Controllers\IntArticuloCodBarraController;
 use App\Http\Controllers\IntExistenciaController;
 use App\Http\Controllers\IntAlmacenController;
+use App\Http\Controllers\IntParametroController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -12,6 +13,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+// PARAMETROS //
+Route::get('/contadorArticulo', [IntParametroController::class, 'getParametro']);
+Route::post('/parametro/update', [IntParametroController::class, 'update']);
+// USUARIOS //
 Route::post('/existenick', [UserController::class, 'existeNick'])->name('existenick');
 Route::post('/existeemail', [UserController::class, 'existeEmail'])->name('existeemail');
 Route::post('/getuser', [UserController::class, 'getUser'])->name('getuser');
