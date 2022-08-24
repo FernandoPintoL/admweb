@@ -5,9 +5,14 @@ namespace App\Http\Controllers;
 use App\Models\IntAlmacen;
 use App\Http\Requests\StoreIntAlmacenRequest;
 use App\Http\Requests\UpdateIntAlmacenRequest;
-
+use Illuminate\Http\Request;
 class IntAlmacenController extends Controller
 {
+    public function getAlmacenes(Request $request){
+        $data = $request->all();
+        $almacenes = IntAlmacen::all();
+        return response()->json($almacenes);
+    }
     /**
      * Display a listing of the resource.
      *

@@ -197,7 +197,7 @@
             (function($) {
             "use strict";
             if(widthwindow+17 <= 993) {
-                $toggle_nav_top.attr('checked', false);
+                // $toggle_nav_top.attr('checked', false);
                 $nav.addClass("close_icon");
                 $header.addClass("close_icon");
             }

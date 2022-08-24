@@ -4,18 +4,9 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\IntArticuloController;
 use App\Http\Controllers\IntArticuloCodBarraController;
 use App\Http\Controllers\IntExistenciaController;
+use App\Http\Controllers\IntAlmacenController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
-*/
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
@@ -38,3 +29,5 @@ Route::post('/articulo/codbarras', [IntArticuloCodBarraController::class, 'getAr
 Route::post('/articulo/register/existencia', [IntExistenciaController::class, 'store']);
 Route::post('/articulo/update/existencia', [IntExistenciaController::class, 'update']);
 Route::post('/articulo/existencia', [IntExistenciaController::class, 'getExistencia'])->name('existencia');
+// ALMACENES //
+Route::post('/almacen/query', [IntAlmacenController::class, 'getAlmacenes']);

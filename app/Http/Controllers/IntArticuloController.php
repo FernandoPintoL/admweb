@@ -56,15 +56,20 @@ class IntArticuloController extends Controller
         $data = $request->all();
 
         $articulo = IntArticulo::create([
-            "artNombre" => $data['artNombre'],
-            "artDescripcion" => $data['artDescripcion'],
-            "artPrecioVenta" => $data['artPrecioVenta'],
-            "artPrecioVentaDos" => $data['artPrecioVentaDos'],
-            "artPrecioVentaTres" => $data['artPrecioVentaTres'],
+            "artNombre" => $data['artNombre'] == null ? "" : $data['artNombre'],
+            "artDescripcion" => $data['artDescripcion'] == null ? "" : $data['artDescripcion'],
+            "artPrecioVenta" => $data['artPrecioVenta'] == null ? "" : $data['artPrecioVenta'],
+            "artPrecioVentaDos" => $data['artPrecioVentaDos'] == null ? "" : $data['artPrecioVentaDos'],
+            "artPrecioVentaTres" => $data['artPrecioVentaTres'] == null ? "" : $data['artPrecioVentaTres'],
             "artFraccionado" => "N",
             "monId" => "BOL",
             "uniId" => "UNI",
-            "resId" => "RESGEN"
+            "resId" => "RESGEN",
+            "artTipo" => "I",
+            "artPropiedad" => "P",
+            "artCalculoCosto" => "U",
+            "artConvertirEnAF" => "N",
+            "artDepreciable" => "S"
         ]);
         return response()->json($articulo);
     }

@@ -22,6 +22,11 @@ class IntArticulo extends Model
         'artPrecioVentaTres',
         'artFraccionado',
         'artFoto',
-        'artHabilitado'
+        'artHabilitado',
+        'artTipo',
+        'artPropiedad',
+        'artCalculoCosto',
+        'artConvertirEnAF',
+        'artDepreciable'
     ];
 }
