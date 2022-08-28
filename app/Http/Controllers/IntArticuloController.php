@@ -56,6 +56,7 @@ class IntArticuloController extends Controller
         $data = $request->all();
 
         $articulo = IntArticulo::create([
+            "artId" => $data['artId'],
             "artNombre" => $data['artNombre'] == null ? "" : $data['artNombre'],
             "artDescripcion" => $data['artDescripcion'] == null ? "" : $data['artDescripcion'],
             "artPrecioVenta" => $data['artPrecioVenta'] == null ? "" : $data['artPrecioVenta'],
@@ -112,12 +113,17 @@ class IntArticuloController extends Controller
             "artNombre" => $data['artNombre'] == null ? "" : $data['artNombre'],
             "artDescripcion" => $data['artDescripcion'] == null ? "" : $data['artDescripcion'],
             "artPrecioVenta" => $data['artPrecioVenta'] == null ? "" : $data['artPrecioVenta'],
-            "artPrecioVentaDos" => $data['artPrecioVentaDos'] == null ? "" : $data['artPrecioVentaDos'],
-            "artPrecioVentaTres" => $data['artPrecioVentaTres'] == null ? "" : $data['artPrecioVentaTres'],
-            "artFraccionado" => "N",
-            "monId" => "BOL",
-            "uniId" => "UNI",
-            "resId" => "RESGEN"
+            // "artPrecioVentaDos" => $data['artPrecioVentaDos'] == null ? "" : $data['artPrecioVentaDos'],
+            // "artPrecioVentaTres" => $data['artPrecioVentaTres'] == null ? "" : $data['artPrecioVentaTres'],
+            // "artFraccionado" => "N",
+            // "monId" => "BOL",
+            // "uniId" => "UNI",
+            // "resId" => "RESGEN",
+            "artTipo" => "I",
+            "artPropiedad" => "P",
+            // "artCalculoCosto" => "U",
+            // "artConvertirEnAF" => "N",
+            // "artDepreciable" => "S"
         ]);
         return response()->json($articulo);
     }

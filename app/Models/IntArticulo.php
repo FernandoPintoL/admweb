@@ -10,8 +10,9 @@ class IntArticulo extends Model
     use HasFactory;
     protected $table = 'intArticulo';
     public $timestamps = false;
-    protected $primaryKey = 'artId';
+    // protected $primaryKey = 'artId';
     protected $fillable = [
+        'artId',
         'uniId',
         'monId',
         'resId',

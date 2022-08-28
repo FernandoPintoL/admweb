@@ -11,7 +11,7 @@ class IntParametroController extends Controller
 {
 
     public function getParametro(){
-        $parametro = IntParametro::select('inpContadorArticulo')->all()->first();
+        $parametro = IntParametro::select('inpId','inpContadorArticulo')->get()->first();
         return response()->json($parametro);
     }
 

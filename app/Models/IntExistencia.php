@@ -10,6 +10,7 @@ class IntExistencia extends Model
     use HasFactory;
     protected $table = 'intExistencia';
     public $timestamps = false;
+    public $incrementing = false;
     // protected $primaryKey = 'artId';
     protected $fillable = [
         'almId',

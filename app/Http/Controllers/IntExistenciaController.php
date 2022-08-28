@@ -19,12 +19,18 @@ class IntExistenciaController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
-        $existencia = IntExistencia::create([
-            "almId" => $data['almId'],
-            "artId" => $data['artId'],
-            "exiExistencia" => $data['exiExistencia'],
-        ]);
-        return response()->json($existencia);
+        $exi = new IntExistencia;
+        $exi->almId = $data['almId'] == null ? "ALMCEN" : $data['almId'];
+        $exi->artId = $data['artId'] == null ? "1000" : $data['artId'];
+        $exi->exiExistencia = $data['exiExistencia'];
+        $exi->save();
+
+        // $existencia = IntExistencia::create([
+        //     "almId" => $data['almId'],
+        //     "artId" => $data['artId'],
+        //     "exiExistencia" => $data['exiExistencia'],
+        // ]);
+        return response()->json($exi);
     }
     /**
      * Display a listing of the resource.
@@ -87,8 +93,6 @@ class IntExistenciaController extends Controller
     {
         $data = $request->all();
         $existencia = IntExistencia::where('almId',$data['almId'])->where('artId',$data['artId'])->update([
-            "almId" => $data['almId'],
-            "artId" => $data['artId'],
             "exiExistencia" => $data['exiExistencia'],
         ]);
         return response()->json($existencia);

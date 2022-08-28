@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\IntArticuloCodBarra;
 // use App\Http\Requests\StoreIntArticuloCodBarraRequest;
-use App\Http\Requests\UpdateIntArticuloCodBarraRequest;
+// use App\Http\Requests\UpdateIntArticuloCodBarraRequest;
 use Illuminate\Http\Request;
 
 class IntArticuloCodBarraController extends Controller
@@ -85,11 +85,8 @@ class IntArticuloCodBarraController extends Controller
     {
         $data = $request->all();
         $existencia = IntArticuloCodBarra::where('tadId',$data['tadId'])->update([
-            "artId" => $data['artId'],
             "codBarra" => $data['codBarra'],
-            "cbHabilitado" => "S",
-            "cbFechaCreacion" => date("Y-m-d\TH:i:s.000"),
-            "acbUsuarioCreacion" => "novusers"
+            "cbFechaCreacion" => date("Y-m-d\TH:i:s.000")
         ]);
         return response()->json($existencia);
     }

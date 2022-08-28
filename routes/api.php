@@ -14,7 +14,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 // PARAMETROS //
-Route::get('/contadorArticulo', [IntParametroController::class, 'getParametro']);
+Route::get('/parametro/idarticulo', [IntParametroController::class, 'getParametro']);
 Route::post('/parametro/update', [IntParametroController::class, 'update']);
 // USUARIOS //
 Route::post('/existenick', [UserController::class, 'existeNick'])->name('existenick');
