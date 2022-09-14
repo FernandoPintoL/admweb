@@ -6,13 +6,12 @@ use Inertia\Inertia;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\IntArticuloController;
+use App\Http\Controllers\UserController;
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
     ]);
 });
 
@@ -26,8 +25,9 @@ Route::middleware([
     })->name('dashboard');
 });
 
-Route::get('/chat', [MessageController::class, 'index'])->name('chat');
+Route::get('/usuario', [UserController::class, 'index'])->name('usuario');
 Route::get('/articulo', [IntArticuloController::class, 'index'])->name('articulo');
+Route::get('/chat', [MessageController::class, 'index'])->name('chat');
 Route::get('/messages', [MessageController::class, 'messages'])->name('messages');
 Route::post('/messagestore', [MessageController::class, 'messagestore'])->name('messagestore');
 

@@ -20,6 +20,8 @@ Route::post('/parametro/update', [IntParametroController::class, 'update']);
 Route::post('/existenick', [UserController::class, 'existeNick'])->name('existenick');
 Route::post('/existeemail', [UserController::class, 'existeEmail'])->name('existeemail');
 Route::post('/getuser', [UserController::class, 'getUser'])->name('getuser');
+Route::post('/getalluser', [UserController::class, 'getAllUser'])->name('getalluser');
+Route::get('users/datatables',[UserController::class, 'datatablesUsers']);
 // ARTICULO //
 Route::post('/articulo/register', [IntArticuloController::class, 'store']);
 Route::post('/articulo/update', [IntArticuloController::class, 'update']);

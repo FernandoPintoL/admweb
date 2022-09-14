@@ -3,16 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Models\IntExistencia;
-use App\Http\Requests\StoreIntExistenciaRequest;
-use App\Http\Requests\UpdateIntExistenciaRequest;
+// use App\Http\Requests\StoreIntExistenciaRequest;
+// use App\Http\Requests\UpdateIntExistenciaRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 
 class IntExistenciaController extends Controller
 {
     public function getExistencia(Request $request){
         $data = $request->all();
-        $existencia = IntExistencia::select('almId','artId','exiExistencia')->where('artId', $data['artId'])->get();
+        // $existencia = IntExistencia::select('almId','artId','exiExistencia')->where('artId', $data['artId'])->get();
+        $existencia = DB::table('intExistencia as e')
+                    ->join('intAlmacen as a', 'e.almId', '=', 'a.almId')
+                    ->select('a.almId','e.artId','e.exiExistencia', 'a.almNombre')
+                    ->where('artId', $data['artId'])->get();
         return response()->json($existencia);
     }
 
