@@ -8,7 +8,8 @@ use App\Models\User;
 class GntDirectorio extends Model
 {
     use HasFactory;
-    protected $table = 'gntDirectorio';
+    // protected $table = 'gntDirectorio';
+    // protected $table = 'gnt_directorio';
     public $timestamps = false;
     protected $fillable = [
         'user_id',

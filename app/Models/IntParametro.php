@@ -8,7 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class IntParametro extends Model
 {
     use HasFactory;
-    protected $table = 'intParametro';
+    // protected $table = 'intParametro';
+    // protected $table = 'int_parametro';
     public $timestamps = false;
     protected $fillable = [
         'inpId',

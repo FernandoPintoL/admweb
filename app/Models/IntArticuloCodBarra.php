@@ -8,7 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class IntArticuloCodBarra extends Model
 {
     use HasFactory;
-    public $table = 'intArticuloCodBarra';
+    // public $table = 'intArticuloCodBarra';
+    // public $table = 'int_articulo_cod_barra';
     public $primaryKey = 'tadId';
     public $timestamps = false;
     public $fillable = [

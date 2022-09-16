@@ -16982,7 +16982,7 @@ body.authentication-bg .account-pages {
 }
 
 .auth-fluid .auth-fluid-form-box {
-    max-width: 480px;
+    max-width: 45%;
     border-radius: 0;
     z-index: 2;
     padding: 3rem 2rem;

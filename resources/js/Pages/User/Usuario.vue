@@ -4,7 +4,6 @@ import global from "@/Globales/global.vue";
 import globalView from "@/Globales/globalView.vue";
 import Table from "@/Components/Table.vue";
 import RegisterUpdate from "@/Pages/User/RegisterUpdate.vue";
-import { CAlert } from "@coreui/vue";
 
 export default {
     components: {
@@ -13,7 +12,6 @@ export default {
         Table,
         globalView,
         RegisterUpdate,
-        CAlert,
     },
     data() {
         return {
@@ -34,50 +32,20 @@ export default {
         };
     },
     methods: {
-        abrirOffcanvas() {
-            // console.log(window.document);
-            // var myOffcanvas = document.getElementById("offcanvasScrolling");
-            // var myOffcanvas = $("#offcanvasScrolling");
-            // console.log(myOffcanvas);
-            const myOffcanvas = document.getElementById("myOffcanvas");
-            myOffcanvas.addEventListener("hidden.bs.offcanvas", (event) => {
-                // do something...
-                console.log(event);
-            });
-        },
         async cargarUser() {
             globalView.dataTables(
                 "#laravel-tables",
                 "/api/users/datatables",
                 this.encabezados
             );
-            // var users = await axios.get("/api/users/datatables");
-            // console.log(users.data["data"]);
-            // this.usuarios = users.data["data"];
-            // console.log(this.usuarios);
-            // globalView.tabla("#tables");
-            // console.log(route("/api/users/datatables"));
-            /*$(document).ready(function () {
-                $("#laravel-tables").DataTable({
-                    processing: true,
-                    serverSide: true,
-                    ajax: "/api/users/datatables",
-                    ajax: url("/api/users/datatables"),
-                    columns: [
-                        { data: "id", name: "id" },
-                        { data: "name", name: "name" },
-                        { data: "nick", name: "nick" },
-                        { data: "email", name: "email" },
-                        { data: "status", name: "status" },
-                        {
-                            data: "action",
-                            name: "action",
-                            orderable: false,
-                            searchable: false,
-                        },
-                    ],
-                });
-            });*/
+        },
+        recargarTable() {
+            console.log("cargar datos");
+            globalView.recargar(
+                "#laravel-tables",
+                "/api/users/datatables",
+                this.encabezados
+            );
         },
     },
     mounted() {
@@ -114,7 +82,7 @@ export default {
                                     class="btn btn-danger"
                                     type="button"
                                     data-bs-toggle="offcanvas"
-                                    data-bs-target="#offcanvasScrolling"
+                                    data-bs-target="#registerUpdateData"
                                     aria-controls="offcanvasScrolling"
                                 >
                                     <i class="mdi mdi-plus-circle me-2"></i>
@@ -125,7 +93,7 @@ export default {
                                 <div class="text-sm-end">
                                     <button
                                         type="button"
-                                        @onclick="abrirOffcanvas"
+                                        @click="recargarTable"
                                         class="btn btn-success mb-2 me-1 bg-green-500"
                                     >
                                         <i class="mdi mdi-cog-outline"></i>
@@ -146,7 +114,28 @@ export default {
                                         <th>Nick</th>
                                         <th>Email</th>
                                         <th>Estado</th>
-                                        <th>Acciones</th>
+                                        <th class="table-action">
+                                            <a
+                                                href="javascript:void(0);"
+                                                class="action-icon"
+                                            >
+                                                <i class="mdi mdi-eye"></i
+                                            ></a>
+                                            <a
+                                                href="javascript:void(0);"
+                                                class="action-icon"
+                                            >
+                                                <i
+                                                    class="mdi mdi-square-edit-outline"
+                                                ></i
+                                            ></a>
+                                            <a
+                                                href="javascript:void(0);"
+                                                class="action-icon"
+                                            >
+                                                <i class="mdi mdi-delete"></i
+                                            ></a>
+                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody></tbody>

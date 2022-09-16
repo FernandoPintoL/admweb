@@ -65,10 +65,10 @@
         <script src="{{ asset('assets/js/vendor/dataTables.keyTable.min.js') }}"></script>
         <script src="{{ asset('assets/js/vendor/dataTables.select.min.js') }}"></script>
         <script src="{{ asset('js/datatables/buttons.colVis.min.js') }}"></script>
-        {{-- <script src="{{ asset('js/datatables/buttons.html5.min.js') }}"></script> --}}
         <script src="{{ asset('js/datatables/jszip.min.js') }}"></script>
         <script src="{{ asset('js/datatables/pdfmake.min.js') }}"></script>
         <script src="{{ asset('js/datatables/vfs_fonts.js') }}"></script>
+        {{-- <script src="{{ asset('js/datatables/buttons.html5.min.js') }}"></script> --}}
         <!-- demo app -->
         {{-- <script src="{{ asset('assets/js/pages/demo.datatable-init.js') }}"></script> --}}
         <!-- end demo js-->

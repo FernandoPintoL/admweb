@@ -5,6 +5,12 @@ namespace App\Http\Middleware;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
+
+use Spatie\Permission\Models\Permission;
+
 class HandleInertiaRequests extends Middleware
 {
     /**

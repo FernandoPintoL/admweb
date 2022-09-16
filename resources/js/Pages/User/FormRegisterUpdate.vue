@@ -1,11 +1,16 @@
 <script>
-import { isQualifiedTypeIdentifier } from "@babel/types";
-
+import globalView from "@/Globales/globalView.vue";
+import global from "@/Globales/global.vue";
 export default {
     name: "FormRegisterUpdate",
-    props: ["isRegister", "isEdit", "isUserRegister", "user"],
+    props: ["isRegister", "isEdit", "isPageRegister", "user"],
+    components: {
+        globalView,
+        global,
+    },
     data() {
         return {
+            title: "",
             form: {
                 name: "",
                 nick: "",
@@ -14,6 +19,19 @@ export default {
                 password_confirmation: "",
                 terms: false,
             },
+            encabezados: [
+                { data: "id", name: "id" },
+                { data: "name", name: "name" },
+                { data: "nick", name: "nick" },
+                { data: "email", name: "email" },
+                { data: "status", name: "status" },
+                {
+                    data: "action",
+                    name: "action",
+                    orderable: false,
+                    searchable: false,
+                },
+            ],
             hasErrors: false,
             inputTypePassword: true,
             inputTypePasswordRepeat: true,
@@ -55,20 +73,38 @@ export default {
                 this.passwordIsCorrect &&
                 this.passwordRepeatIsCorrect
             ) {
-                await axios
-                    .post(route("register"), this.form)
-                    .then((response) => {
-                        console.log(response.data);
-                        window.location = route("login");
-                    })
-                    .catch((error) => {
-                        if (error.response) {
-                            this.hasErrors = true;
-                            console.log(error.response.data.errors);
-                            this.errors = error.response.data.errors;
-                        }
-                    });
+                if (this.isPageRegister) {
+                    await axios
+                        .post(route("register"), this.form)
+                        .then((response) => {
+                            console.log(response);
+                            window.location = route("login");
+                        })
+                        .catch((error) => {
+                            if (error.response) {
+                                this.hasErrors = true;
+                                console.log(error.response.data.errors);
+                                this.errors = error.response.data.errors;
+                            }
+                        });
+                } else {
+                    global.postQuery("/api/usuario/register", this.form);
+                    globalView.recargar(
+                        "#laravel-tables",
+                        "/api/users/datatables",
+                        this.encabezados
+                    );
+                }
             }
+        },
+        todoIsCorrecto() {
+            return (
+                this.nameIsCorrect &&
+                this.nickIsCorrect &&
+                this.emailIsCorrect &&
+                this.passwordIsCorrect &&
+                this.passwordRepeatIsCorrect
+            );
         },
         changeTypePassword() {
             this.inputTypePassword = !this.inputTypePassword;
@@ -100,7 +136,6 @@ export default {
             if (this.form.nick.length >= 5) {
                 //evaluando existencia del nick
                 if ((await this.existeNick()) > 0) {
-                    console.log("el nick ya esta usado");
                     if (!this.seEncuentraMsg(this.messagesNick, 3)) {
                         this.messagesNick.push({
                             id: 3,
@@ -133,7 +168,6 @@ export default {
             if (this.form.email.length >= 5) {
                 //evaluando existencia del nick
                 if ((await this.existeEmail()) > 0) {
-                    console.log("el email ya esta usado");
                     if (!this.seEncuentraMsg(this.messagesEmail, 3)) {
                         this.messagesEmail.push({
                             id: 3,
@@ -208,8 +242,6 @@ export default {
                     nick: this.form.nick,
                 })
                 .then((response) => {
-                    console.log(response.data["cantidad"]);
-                    //return response.data["cantidad"];
                     existe = response.data["cantidad"];
                     return existe;
                 })
@@ -228,7 +260,6 @@ export default {
                     email: this.form.email,
                 })
                 .then((response) => {
-                    console.log(response.data["cantidad"]);
                     existe = response.data["cantidad"];
                     return existe;
                 })
@@ -255,7 +286,12 @@ export default {
         },
     },
     mounted() {
-        console.log(this.user);
+        if (this.isRegister) {
+            this.title = "Registrar Datos";
+        }
+        if (this.isEdit) {
+            this.title = "Actualizar Datos";
+        }
     },
 };
 </script>
@@ -271,7 +307,7 @@ export default {
 </style>
 
 <template>
-    <div>
+    <div v-bind:class="[todoIsCorrecto ? 'check' : '']">
         <div class="alert alert-danger p-1 mt-2" role="alert" v-if="hasErrors">
             <div>Whoops! Algo salio mal.</div>
 
@@ -567,20 +603,11 @@ export default {
             </div>
             <div class="d-grid mb-3 text-center">
                 <button
-                    v-if="isRegister"
                     class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded"
                     type="submit"
                 >
                     <i class="mdi mdi-account-circle"></i>
-                    Registrarse
-                </button>
-                <button
-                    v-if="isEdit"
-                    class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded"
-                    type="submit"
-                >
-                    <i class="mdi mdi-account-circle"></i>
-                    Editar
+                    {{ title }}
                 </button>
             </div>
         </form>

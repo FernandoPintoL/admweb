@@ -8,7 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class IntExistencia extends Model
 {
     use HasFactory;
-    protected $table = 'intExistencia';
+    // protected $table = 'intExistencia';
+    // protected $table = 'int_existencia';
     public $timestamps = false;
     public $incrementing = false;
     // protected $primaryKey = 'artId';

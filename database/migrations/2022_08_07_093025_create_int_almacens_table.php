@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('int_almacens', function (Blueprint $table) {
+        Schema::create('int_almacenes', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
         });
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('int_almacens');
+        Schema::dropIfExists('int_almacenes');
     }
 };

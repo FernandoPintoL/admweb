@@ -8,7 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class IntArticulo extends Model
 {
     use HasFactory;
-    protected $table = 'intArticulo';
+    // protected $table = 'intArticulo';
+    // protected $table = 'int_articulo';
     public $timestamps = false;
     // protected $primaryKey = 'artId';
     protected $fillable = [

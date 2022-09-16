@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Inertia\Inertia;
 use Yajra\Datatables\Datatables;
+use Illuminate\Support\Facades\Hash;
+
 class UserController extends Controller
 {
     public function existeNick(Request $request){
@@ -39,7 +41,7 @@ class UserController extends Controller
         $users = User::select('id','name','nick','email','status')->get();
         return Datatables::of($users)
                 ->addColumn('action', function ($user) {
-                return '<a href="#edit-'.$user->id.'" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-edit"></i> Edit</a>';
+                return '<a href="/usuario/'.$user->id.'/update" class="btn btn-xs btn-primary rounded-full"><i class="mdi mdi-square-edit-outline"></i</a>';
             })
             ->rawColumns(['action'])->rawColumns(['action'])
             ->make(true);
@@ -66,7 +68,15 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+        $user = User::create([
+            "name" => $data['name'],
+            "email" => $data['email'],
+            "nick" => $data['nick'],
+            'password' => Hash::make($data['password']),
+            
+        ]);
+        return response()->json($user);
     }
 
     /**

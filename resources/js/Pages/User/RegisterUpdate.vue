@@ -2,8 +2,8 @@
 import { ref } from "vue";
 import FormRegisterUpdate from "@/Pages/User/FormRegisterUpdate.vue";
 export default {
-    name: "RegistrarUpdate",
-    props: ["isRegister", "isEdit", "user"],
+    name: "RegistrarUpdateData",
+    props: ["isRegister", "isEdit", "data"],
     components: {
         ref,
         FormRegisterUpdate,
@@ -13,12 +13,12 @@ export default {
             title: "",
         };
     },
-    unted() {
+    mounted() {
         if (this.isRegister) {
-            console.log("registrar datos");
+            this.title = "Registrar Usuario";
         }
         if (this.isEdit) {
-            console.log("actualizar datos");
+            this.title = "Editar Usuario";
         }
     },
 };
@@ -30,7 +30,7 @@ export default {
         data-bs-scroll="true"
         data-bs-backdrop="true"
         tabindex="-1"
-        id="offcanvasScrolling"
+        id="registerUpdateData"
         aria-labelledby="offcanvasScrollingLabel"
     >
         <div class="offcanvas-header">
@@ -46,10 +46,14 @@ export default {
                 aria-label="Close"
             ></button>
         </div>
+        <hr />
         <div class="offcanvas-body">
-            <hr />
             <div class="container-fluid">
-                <FormRegisterUpdate :isRegister="isRegister" :isEdit="isEdit" />
+                <FormRegisterUpdate
+                    :isRegister="isRegister"
+                    :isEdit="isEdit"
+                    :isPageRegister="false"
+                />
             </div>
         </div>
     </div>

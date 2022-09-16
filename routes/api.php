@@ -17,6 +17,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::get('/parametro/idarticulo', [IntParametroController::class, 'getParametro']);
 Route::post('/parametro/update', [IntParametroController::class, 'update']);
 // USUARIOS //
+Route::post('/usuario/register', [UserController::class, 'store'])->name('usuario.register');
 Route::post('/existenick', [UserController::class, 'existeNick'])->name('existenick');
 Route::post('/existeemail', [UserController::class, 'existeEmail'])->name('existeemail');
 Route::post('/getuser', [UserController::class, 'getUser'])->name('getuser');
