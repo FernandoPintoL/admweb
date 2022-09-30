@@ -1,10 +1,12 @@
 <script>
+import { Inertia } from "@inertiajs/inertia";
 import { Head, Link } from "@inertiajs/inertia-vue3";
 
 export default {
     components: {
         Head,
         Link,
+        Inertia,
     },
     props: ["canResetPassword", "status"],
     data() {
@@ -36,7 +38,8 @@ export default {
                     .post(route("login"), this.form)
                     .then((response) => {
                         console.log(response.data);
-                        window.location = route("login");
+                        // window.location = route("login");
+                        Inertia.get("login");
                     })
                     .catch((error) => {
                         if (error.response) {
@@ -145,7 +148,6 @@ export default {
                 });
             return existe;
         },
-
         async existeEmail() {
             console.log("entrando");
             var existe = await axios
@@ -200,22 +202,22 @@ export default {
                     <div class="card-body">
                         <!-- Logo -->
                         <div class="auth-brand text-center text-lg-start">
-                            <a :href="'/'" class="logo-dark">
+                            <Link :href="'/'" class="logo-dark">
                                 <span
                                     ><img
                                         src="assets/images/logo-dark.png"
                                         alt=""
                                         height="18"
                                 /></span>
-                            </a>
-                            <a :href="'/'" class="logo-light">
+                            </Link>
+                            <Link :href="'/'" class="logo-light">
                                 <span
                                     ><img
                                         src="assets/images/logo.png"
                                         alt=""
                                         height="18"
                                 /></span>
-                            </a>
+                            </Link>
                         </div>
                         <!-- title-->
                         <h4 class="mt-0">Accede!</h4>
@@ -468,10 +470,10 @@ export default {
                         <footer class="footer footer-alt">
                             <p class="text-muted">
                                 Si no tienes un cuenta
-                                <a
+                                <Link
                                     :href="route('register')"
                                     class="text-muted ms-1"
-                                    ><b>Registrate aqui</b></a
+                                    ><b>Registrate aqui</b></Link
                                 >
                             </p>
                         </footer>

@@ -1,8 +1,13 @@
 <?php
+use Database\Seeders\RoleSeeder;
+use Database\Seeders\PermissionSeeder;
+use Database\Seeders\UserSeeder;
+use Database\Seeders\RoleAndPermissionSeeder;
 
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Support\Facades\Artisan;
 use Spatie\Permission\PermissionRegistrar;
 
 class CreatePermissionTables extends Migration
@@ -113,6 +118,22 @@ class CreatePermissionTables extends Migration
 
             $table->primary([PermissionRegistrar::$pivotPermission, PermissionRegistrar::$pivotRole], 'role_has_permissions_permission_id_role_id_primary');
         });
+
+        Artisan::call('db:seed',[
+            '--class' => RoleSeeder::class
+        ]);
+
+        Artisan::call('db:seed',[
+            '--class' => PermissionSeeder::class
+        ]);
+
+        Artisan::call('db:seed',[
+            '--class' => UserSeeder::class
+        ]);
+
+        Artisan::call('db:seed',[
+            '--class' => RoleAndPermissionSeeder::class
+        ]);
 
         app('cache')
             ->store(config('permission.cache.store') != 'default' ? config('permission.cache.store') : null)

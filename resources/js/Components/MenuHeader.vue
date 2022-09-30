@@ -1,37 +1,22 @@
 <script>
+import { Inertia } from "@inertiajs/inertia";
 export default {
     name: "MenuHeader",
     props: ["user"],
+    components: {
+        Inertia,
+    },
+    methods: {
+        logout() {
+            Inertia.post(route("logout"));
+        },
+    },
 };
 </script>
 
 <template>
     <div class="navbar-custom">
         <ul class="list-unstyled topbar-menu float-end mb-0">
-            <!-- <li class="dropdown notification-list d-lg-none">
-                <a
-                    class="nav-link dropdown-toggle arrow-none"
-                    data-bs-toggle="dropdown"
-                    href="#"
-                    role="button"
-                    aria-haspopup="false"
-                    aria-expanded="false"
-                >
-                    <i class="dripicons-search noti-icon"></i>
-                </a>
-                <div
-                    class="dropdown-menu dropdown-menu-animated dropdown-lg p-0"
-                >
-                    <form class="p-3">
-                        <input
-                            type="text"
-                            class="form-control"
-                            placeholder="Search ..."
-                            aria-label="Recipient's username"
-                        />
-                    </form>
-                </div>
-            </li> -->
             <li class="dropdown notification-list">
                 <a
                     class="nav-link dropdown-toggle arrow-none"
@@ -97,7 +82,7 @@ export default {
                         >
                             <div class="notify-icon">
                                 <img
-                                    src="assets/images/users/avatar-2.jpg"
+                                    v-bind:src="'assets/images/users/avatar-2.jpg'"
                                     class="img-fluid rounded-circle"
                                     alt=""
                                 />
@@ -132,7 +117,7 @@ export default {
                         >
                             <div class="notify-icon">
                                 <img
-                                    src="assets/images/users/avatar-4.jpg"
+                                    v-bind:src="'assets/images/users/avatar-4.jpg'"
                                     class="img-fluid rounded-circle"
                                     alt=""
                                 />
@@ -189,8 +174,8 @@ export default {
                 >
                     <span class="account-user-avatar">
                         <img
-                            :src="$page.props.user.profile_photo_url"
-                            :alt="$page.props.user.name"
+                            v-bind:src="$page.props.user.profile_photo_url"
+                            v-bind:alt="$page.props.user.name"
                             class="rounded-circle"
                         />
                     </span>
@@ -248,13 +233,16 @@ export default {
                     </a>
 
                     <!-- item-->
-                    <a
-                        href="javascript:void(0);"
+                    <form
+                        method="POST"
                         class="dropdown-item notify-item"
+                        @submit.prevent="logout"
                     >
-                        <i class="mdi mdi-logout me-1"></i>
-                        <span>Logout</span>
-                    </a>
+                        <button type="submit">
+                            <i class="mdi mdi-logout me-1"></i>
+                            <span>Logout</span>
+                        </button>
+                    </form>
                 </div>
             </li>
         </ul>
@@ -324,7 +312,7 @@ export default {
                         <div class="d-flex">
                             <img
                                 class="d-flex me-2 rounded-circle"
-                                src="assets/images/users/avatar-2.jpg"
+                                v-bind:src="'assets/images/users/avatar-2.jpg'"
                                 alt="Generic placeholder image"
                                 height="32"
                             />
@@ -343,7 +331,7 @@ export default {
                         <div class="d-flex">
                             <img
                                 class="d-flex me-2 rounded-circle"
-                                src="assets/images/users/avatar-5.jpg"
+                                v-bind:src="'assets/images/users/avatar-5.jpg'"
                                 alt="Generic placeholder image"
                                 height="32"
                             />

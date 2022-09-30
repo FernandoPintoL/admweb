@@ -1,58 +1,54 @@
-<script>
+<script setup>
+import { Head, Link } from "@inertiajs/inertia-vue3";
 import AppLayout from "@/Layouts/AppLayout.vue";
 import global from "@/Globales/global.vue";
 import globalView from "@/Globales/globalView.vue";
 import Table from "@/Components/Table.vue";
 import RegisterUpdate from "@/Pages/User/RegisterUpdate.vue";
+import { onMounted, ref } from "vue";
+var props = defineProps({
+    users: {
+        type: Object,
+        default: [],
+    },
+});
 
+var userEdit = ref({});
+var isRegister = ref(false);
+var isEdit = ref(false);
+
+const cargarTable = () => globalView.createtable("#tableUsers");
+
+var editarUsuario = (data) => {
+    userEdit.value = data;
+    isEdit.value = true;
+    isRegister.value = false;
+};
+
+function crearUsuario() {
+    isEdit.value = false;
+    isRegister.value = true;
+    userEdit.value = {};
+}
+
+onMounted(() => {
+    cargarTable();
+});
+</script>
+<script>
 export default {
-    components: {
-        AppLayout,
-        global,
-        Table,
-        globalView,
-        RegisterUpdate,
-    },
-    data() {
-        return {
-            usuarios: [],
-            encabezados: [
-                { data: "id", name: "id" },
-                { data: "name", name: "name" },
-                { data: "nick", name: "nick" },
-                { data: "email", name: "email" },
-                { data: "status", name: "status" },
-                {
-                    data: "action",
-                    name: "action",
-                    orderable: false,
-                    searchable: false,
-                },
-            ],
-        };
-    },
-    methods: {
-        async cargarUser() {
-            globalView.dataTables(
-                "#laravel-tables",
-                "/api/users/datatables",
-                this.encabezados
-            );
-        },
-        recargarTable() {
-            console.log("cargar datos");
-            globalView.recargar(
-                "#laravel-tables",
-                "/api/users/datatables",
-                this.encabezados
-            );
-        },
-    },
-    mounted() {
-        this.cargarUser();
-    },
+    name: "Usuario",
 };
 </script>
+<style>
+.check {
+    border-color: #0acf97 !important;
+}
+
+.uncheck {
+    border-color: #96374a !important;
+}
+</style>
 <template>
     <AppLayout title="Usuario">
         <!-- start page title -->
@@ -84,6 +80,7 @@ export default {
                                     data-bs-toggle="offcanvas"
                                     data-bs-target="#registerUpdateData"
                                     aria-controls="offcanvasScrolling"
+                                    @click="crearUsuario"
                                 >
                                     <i class="mdi mdi-plus-circle me-2"></i>
                                     Registrar Usuario
@@ -93,7 +90,6 @@ export default {
                                 <div class="text-sm-end">
                                     <button
                                         type="button"
-                                        @click="recargarTable"
                                         class="btn btn-success mb-2 me-1 bg-green-500"
                                     >
                                         <i class="mdi mdi-cog-outline"></i>
@@ -105,7 +101,7 @@ export default {
                         <div id="buttons-table-preview">
                             <table
                                 class="table dt-responsive nowrap w-100"
-                                id="laravel-tables"
+                                id="tableUsers"
                             >
                                 <thead class="table-light">
                                     <tr>
@@ -138,7 +134,29 @@ export default {
                                         </th>
                                     </tr>
                                 </thead>
-                                <tbody></tbody>
+                                <tbody>
+                                    <tr v-for="item in users" :key="item.id">
+                                        <td>{{ item.id }}</td>
+                                        <td>{{ item.name }}</td>
+                                        <td>{{ item.nick }}</td>
+                                        <td>{{ item.email }}</td>
+                                        <td>{{ item.status }}</td>
+                                        <td>
+                                            <button
+                                                class="btn btn-info"
+                                                type="button"
+                                                data-bs-toggle="offcanvas"
+                                                data-bs-target="#registerUpdateData"
+                                                aria-controls="offcanvasScrolling"
+                                                @click="editarUsuario(item)"
+                                            >
+                                                <i
+                                                    class="mdi mdi-square-edit-outline"
+                                                ></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
                             </table>
                         </div>
                         <!-- <Table :list="usuarios" /> -->
@@ -149,6 +167,10 @@ export default {
             </div>
             <!-- end col -->
         </div>
-        <RegisterUpdate :isRegister="true" :isEdit="false" />
+        <RegisterUpdate
+            v-bind:isRegister="isRegister"
+            v-bind:isEdit="isEdit"
+            v-bind:userData="userEdit"
+        />
     </AppLayout>
 </template>

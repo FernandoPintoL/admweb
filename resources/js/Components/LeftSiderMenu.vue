@@ -1,33 +1,49 @@
 <script>
-import { ref } from "vue";
+import { Head, Link } from "@inertiajs/inertia-vue3";
+import { Inertia } from "@inertiajs/inertia";
 export default {
     name: "LeftSiderMenu",
     components: {
-        ref,
+        Head,
+        Link,
+        Inertia,
+    },
+    methods: {
+        userEdit() {
+            Inertia.get("usuarios/1");
+        },
     },
 };
 </script>
 <template>
     <div class="leftside-menu">
         <!-- LOGO -->
-        <a :href="'/'" class="logo text-center logo-light ml-2 my-3">
+        <Link href="/" class="logo text-center logo-light ml-2 my-3">
             <span class="logo-lg">
-                <img src="assets/images/logo.png" alt="" height="14" />
+                <img v-bind:src="'assets/images/logo.png'" alt="" height="14" />
             </span>
             <span class="logo-sm">
-                <img src="assets/images/logo_sm.png" alt="" height="14" />
+                <img v-bind:src="'assets/images/logo.png'" alt="" height="14" />
             </span>
-        </a>
+        </Link>
 
         <!-- LOGO -->
-        <a :href="'/'" class="logo text-center logo-dark ml-2 my-3">
+        <Link href="/" class="logo text-center logo-dark ml-2 my-3">
             <span class="logo-lg">
-                <img src="assets/images/logo-dark.png" alt="" height="14" />
+                <img
+                    v-bind:src="'assets/images/logo-dark.png'"
+                    alt=""
+                    height="14"
+                />
             </span>
             <span class="logo-sm">
-                <img src="assets/images/logo_sm_dark.png" alt="" height="14" />
+                <img
+                    v-bind:src="'assets/images/logo_sm_dark.png'"
+                    alt=""
+                    height="14"
+                />
             </span>
-        </a>
+        </Link>
 
         <div class="h-100" id="leftside-menu-container" data-simplebar="">
             <!--- Sidemenu -->
@@ -48,8 +64,8 @@ export default {
                     </a>
                     <div class="collapse" id="sidebarDashboards">
                         <ul class="side-nav-second-level">
-                            <li>
-                                <a href="dashboard-analytics.html">Analytics</a>
+                            <li @click="userEdit">
+                                <a>Analytics</a>
                             </li>
                             <li>
                                 <a href="dashboard-crm.html">CRM</a>
@@ -67,17 +83,12 @@ export default {
                 <li class="side-nav-title side-nav-item">MODULOS</li>
 
                 <li class="side-nav-item">
-                    <a :href="route('usuario')" class="side-nav-link">
+                    <Link :href="route('user.index')" class="side-nav-link">
                         <i class="mdi mdi-account-settings-outline"></i>
                         <span> Usuarios </span>
-                    </a>
+                    </Link>
                 </li>
             </ul>
-
-            <!-- Help Box -->
-            <!-- end Help Box -->
-            <!-- End Sidebar -->
-
             <div class="clearfix"></div>
         </div>
         <!-- Sidebar -left -->

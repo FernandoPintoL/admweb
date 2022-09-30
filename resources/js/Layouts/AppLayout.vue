@@ -34,7 +34,14 @@ export default {
         return {};
     },
     mounted() {},
-    methods: {},
+    methods: {
+        can(permission) {
+            if (this.$page.props.auth.usuario.is_admin) return true;
+            return this.$page.props.auth.usuario.permission.includes(
+                permission
+            );
+        },
+    },
 };
 </script>
 

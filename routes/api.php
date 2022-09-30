@@ -18,11 +18,13 @@ Route::get('/parametro/idarticulo', [IntParametroController::class, 'getParametr
 Route::post('/parametro/update', [IntParametroController::class, 'update']);
 // USUARIOS //
 Route::post('/usuario/register', [UserController::class, 'store'])->name('usuario.register');
+Route::post('/existenickoremail', [UserController::class, 'existeEmailOrNick'])->name('existenickoremail');
 Route::post('/existenick', [UserController::class, 'existeNick'])->name('existenick');
 Route::post('/existeemail', [UserController::class, 'existeEmail'])->name('existeemail');
 Route::post('/getuser', [UserController::class, 'getUser'])->name('getuser');
 Route::post('/getalluser', [UserController::class, 'getAllUser'])->name('getalluser');
 Route::get('users/datatables',[UserController::class, 'datatablesUsers']);
+Route::get('users/tables',[UserController::class, 'tableUsers']);
 // ARTICULO //
 Route::post('/articulo/register', [IntArticuloController::class, 'store']);
 Route::post('/articulo/update', [IntArticuloController::class, 'update']);

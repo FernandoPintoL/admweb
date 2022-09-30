@@ -7,6 +7,8 @@ use App\Models\User;
 use Inertia\Inertia;
 use Yajra\Datatables\Datatables;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\StoreUserRequest;
+use App\Http\Resources\UserResource;
 
 class UserController extends Controller
 {
@@ -19,6 +21,13 @@ class UserController extends Controller
     public function existeEmail(Request $request){
         $data = $request->all();
         $consult = User::where('email', $data['email'])->get();
+        return response()->json(["cantidad" => count($consult)]);
+    }
+
+    public function existeEmailOrNick(Request $request){
+        $data = $request->all();
+        $consult = User::where('email', $data['query'])
+                        ->orWhere('nick', $data['query'])->get();
         return response()->json(["cantidad" => count($consult)]);
     }
     
@@ -41,7 +50,7 @@ class UserController extends Controller
         $users = User::select('id','name','nick','email','status')->get();
         return Datatables::of($users)
                 ->addColumn('action', function ($user) {
-                return '<a href="/usuario/'.$user->id.'/update" class="btn btn-xs btn-primary rounded-full"><i class="mdi mdi-square-edit-outline"></i</a>';
+                return '<a :href="/usuarios/'.$user->id.'/edit" class="btn btn-xs btn-primary rounded-full"><i class="mdi mdi-square-edit-outline"></i</a>';
             })
             ->rawColumns(['action'])->rawColumns(['action'])
             ->make(true);
@@ -50,6 +59,11 @@ class UserController extends Controller
                 // ->orWhere('nick','%'. $data['query'] . '%')->get();
         // return response()->json(["users" => $users]);
     }
+
+    public function tableUsers(){
+        $users = User::select('id','name','nick','email','status')->get();
+        return response()->json($users);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -57,7 +71,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        return Inertia::render('User/Usuario');
+        return Inertia::render('User/Usuario',[
+            'users' => User::get(),
+        ]);
     }
 
     /**
@@ -66,17 +82,17 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreUserRequest $request)
     {
-        $data = $request->all();
+        $request->validate();
         $user = User::create([
-            "name" => $data['name'],
-            "email" => $data['email'],
-            "nick" => $data['nick'],
-            'password' => Hash::make($data['password']),
+            "name" => $request->name,
+            "email" => $request->email,
+            "nick" => $request->nick,
+            'password' => Hash::make($request->password),
             
         ]);
-        return response()->json($user);
+        return redirect()->route('user.index');
     }
 
     /**
@@ -97,6 +113,11 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    public function edit(User $user)
+    {
+        return Inertia::render('User/UserEdit',['user' => $user]);
+    }
+
     public function update(Request $request, $id)
     {
         //
