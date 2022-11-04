@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 use Yajra\Datatables\Datatables;
 use Illuminate\Support\Facades\Hash;
@@ -14,13 +15,13 @@ class UserController extends Controller
 {
     public function existeNick(Request $request){
         $data = $request->all();
-        $consult = User::where('nick', $data['nick'])->get();
+        $consult = User::where('nick', $data['query'])->get();
         return response()->json(["cantidad" => count($consult)]);
     }
 
     public function existeEmail(Request $request){
         $data = $request->all();
-        $consult = User::where('email', $data['email'])->get();
+        $consult = User::where('email', $data['query'])->get();
         return response()->json(["cantidad" => count($consult)]);
     }
 
@@ -30,7 +31,7 @@ class UserController extends Controller
                         ->orWhere('nick', $data['query'])->get();
         return response()->json(["cantidad" => count($consult)]);
     }
-    
+
     public function getUser(Request $request){
         $data = $request->all();
         $user = User::where('email', $data['query'])
@@ -84,13 +85,12 @@ class UserController extends Controller
      */
     public function store(StoreUserRequest $request)
     {
-        $request->validate();
-        $user = User::create([
+        User::create([
             "name" => $request->name,
             "email" => $request->email,
             "nick" => $request->nick,
             'password' => Hash::make($request->password),
-            
+
         ]);
         return redirect()->route('user.index');
     }
@@ -118,9 +118,14 @@ class UserController extends Controller
         return Inertia::render('User/UserEdit',['user' => $user]);
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, User $user)
     {
-        //
+        $user->update([
+            'name' => $request->name,
+            'nick' => $request->nick,
+            'email' => $request->email,
+        ]);
+        return redirect()->route('user.index');
     }
 
     /**

@@ -19,8 +19,8 @@ Route::post('/parametro/update', [IntParametroController::class, 'update']);
 // USUARIOS //
 Route::post('/usuario/register', [UserController::class, 'store'])->name('usuario.register');
 Route::post('/existenickoremail', [UserController::class, 'existeEmailOrNick'])->name('existenickoremail');
-Route::post('/existenick', [UserController::class, 'existeNick'])->name('existenick');
-Route::post('/existeemail', [UserController::class, 'existeEmail'])->name('existeemail');
+Route::post('/existe/nick', [UserController::class, 'existeNick'])->name('existe.nick');
+Route::post('/existe/email', [UserController::class, 'existeEmail'])->name('existe.email');
 Route::post('/getuser', [UserController::class, 'getUser'])->name('getuser');
 Route::post('/getalluser', [UserController::class, 'getAllUser'])->name('getalluser');
 Route::get('users/datatables',[UserController::class, 'datatablesUsers']);

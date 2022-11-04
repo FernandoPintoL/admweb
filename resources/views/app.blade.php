@@ -45,13 +45,13 @@
         <script src="{{ asset('assets/js/app.min.js') }}"></script>
 
         {{-- <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script> --}}
- 
+
         {{-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
         <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/jszip-2.5.0/dt-1.12.1/af-2.4.0/b-2.2.3/b-colvis-2.2.3/b-html5-2.2.3/b-print-2.2.3/cr-1.5.6/date-1.1.2/kt-2.7.0/r-2.3.0/sp-2.0.2/sl-1.4.0/sr-1.1.1/datatables.min.js"></script> --}}
 
         <!-- Datatables js -->
-        
+
         <!-- third party js -->
         <script src="{{ asset('assets/js/vendor/jquery.dataTables.min.js') }}"></script>
         <script src="{{ asset('assets/js/vendor/dataTables.bootstrap5.js') }}"></script>
@@ -68,6 +68,7 @@
         <script src="{{ asset('js/datatables/jszip.min.js') }}"></script>
         <script src="{{ asset('js/datatables/pdfmake.min.js') }}"></script>
         <script src="{{ asset('js/datatables/vfs_fonts.js') }}"></script>
+        <script src="{{ asset('assets/js/pages/demo.toastr.js') }}"></script>
         {{-- <script src="{{ asset('js/datatables/buttons.html5.min.js') }}"></script> --}}
         <!-- demo app -->
         {{-- <script src="{{ asset('assets/js/pages/demo.datatable-init.js') }}"></script> --}}

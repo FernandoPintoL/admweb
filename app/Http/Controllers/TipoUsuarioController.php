@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\TipoUsuario;
 use App\Http\Requests\StoreTipoUsuarioRequest;
 use App\Http\Requests\UpdateTipoUsuarioRequest;
+use Inertia\Inertia;
 
 class TipoUsuarioController extends Controller
 {
@@ -15,7 +16,9 @@ class TipoUsuarioController extends Controller
      */
     public function index()
     {
-        //
+        return Inertia::render('TipoUser/TipoUser',[
+            'tipousers' => TipoUsuario::get(),
+        ]);
     }
 
     /**

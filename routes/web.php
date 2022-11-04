@@ -9,6 +9,7 @@ use App\Http\Controllers\IntArticuloController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\TipoUsuarioController;
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -37,19 +38,24 @@ Route::middleware([
         });
     });
     //USUARIO
-    
+    Route::resource('user', UserController::class);
+
     Route::get('/usuarios', [UserController::class, 'index'])->name('usuarios.index');
     Route::get('/usuarios/{id}', [UserController::class, 'edit'])->name('usuarios.edit');
-    
+    //TIPO DE USUARIOS
+    Route::resource('tipouser', TipoUsuarioController::class);
+
+    // ROLES
     Route::get('/roles/permisos', [RoleController::class, 'index'])->name('roles.index');
     Route::get('/roles', [RoleController::class, 'index'])->name('roles.index');
+
+    //PERMISOS
     Route::get('/permisos', [PermissionController::class, 'index'])->name('permiso.index');
-    
+
     //ARTICULO
     Route::get('/articulo', [IntArticuloController::class, 'index'])->name('articulo');
 });
 
-Route::resource('user', UserController::class);
 
 /*
 Route::get('/chat', [MessageController::class, 'index'])->name('chat');

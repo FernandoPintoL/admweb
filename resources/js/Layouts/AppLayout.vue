@@ -44,7 +44,14 @@ export default {
     },
 };
 </script>
-
+<style>
+.check {
+    border-color: green !important;
+}
+.uncheck {
+    border-color: red !important;
+}
+</style>
 <template>
     <div
         class="loading"

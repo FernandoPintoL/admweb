@@ -1,7 +1,7 @@
-<script>
-import { Head, Link } from "@inertiajs/inertia-vue3";
+<script setup>
+import { Link } from "@inertiajs/inertia-vue3";
 import { Inertia } from "@inertiajs/inertia";
-export default {
+/*export default {
     name: "LeftSiderMenu",
     components: {
         Head,
@@ -13,7 +13,7 @@ export default {
             Inertia.get("usuarios/1");
         },
     },
-};
+};*/
 </script>
 <template>
     <div class="leftside-menu">
@@ -64,7 +64,7 @@ export default {
                     </a>
                     <div class="collapse" id="sidebarDashboards">
                         <ul class="side-nav-second-level">
-                            <li @click="userEdit">
+                            <li>
                                 <a>Analytics</a>
                             </li>
                             <li>
@@ -82,11 +82,39 @@ export default {
 
                 <li class="side-nav-title side-nav-item">MODULOS</li>
 
-                <li class="side-nav-item">
+<!--                <li class="side-nav-item">
                     <Link :href="route('user.index')" class="side-nav-link">
                         <i class="mdi mdi-account-settings-outline"></i>
                         <span> Usuarios </span>
                     </Link>
+                </li>-->
+
+                <li class="side-nav-item">
+                    <a data-bs-toggle="collapse"
+                       href="#sidebarUsuarios"
+                       aria-expanded="false"
+                       aria-controls="sidebarUsuarios"
+                       class="side-nav-link">
+                        <i class="dripicons-user"></i>
+                        <span> Gestion de Usuarios </span>
+                        <span class="menu-arrow"></span>
+                    </a>
+                    <div class="collapse" id="sidebarUsuarios">
+                        <ul class="side-nav-second-level">
+                            <li>
+                                <Link :href="route('user.index')" class="side-nav-link">
+                                    <i class="dripicons-user-group"></i>
+                                    <span> Usuarios </span>
+                                </Link>
+                            </li>
+                            <li>
+                                <Link :href="route('tipouser.index')" class="side-nav-link">
+                                    <i class="dripicons-user-id"></i>
+                                    <span> Tipo de usuarios </span>
+                                </Link>
+                            </li>
+                        </ul>
+                    </div>
                 </li>
             </ul>
             <div class="clearfix"></div>

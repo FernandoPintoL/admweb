@@ -1,11 +1,12 @@
 <script setup>
 import { Head, Link } from "@inertiajs/inertia-vue3";
-import AppLayout from "@/Layouts/AppLayout.vue";
 import global from "@/Globales/global.vue";
+import AppLayout from "@/Layouts/AppLayout.vue";
 import globalView from "@/Globales/globalView.vue";
 import Table from "@/Components/Table.vue";
 import RegisterUpdate from "@/Pages/User/RegisterUpdate.vue";
 import { onMounted, ref } from "vue";
+
 var props = defineProps({
     users: {
         type: Object,
@@ -16,8 +17,6 @@ var props = defineProps({
 var userEdit = ref({});
 var isRegister = ref(false);
 var isEdit = ref(false);
-
-const cargarTable = () => globalView.createtable("#tableUsers");
 
 var editarUsuario = (data) => {
     userEdit.value = data;
@@ -31,24 +30,15 @@ function crearUsuario() {
     userEdit.value = {};
 }
 
-onMounted(() => {
-    cargarTable();
-});
-</script>
-<script>
-export default {
-    name: "Usuario",
+var ocultar = () => {
+    const offcanvas = window.$('#registerUpdateData');
+    offcanvas.removeClass('.show');
+    offcanvas.addClass('.hide');
+    console.log(offcanvas);
+    console.log(offcanvas.hasClass('offcanvas'));
 };
 </script>
-<style>
-.check {
-    border-color: #0acf97 !important;
-}
 
-.uncheck {
-    border-color: #96374a !important;
-}
-</style>
 <template>
     <AppLayout title="Usuario">
         <!-- start page title -->
@@ -78,7 +68,7 @@ export default {
                                     class="btn btn-danger"
                                     type="button"
                                     data-bs-toggle="offcanvas"
-                                    data-bs-target="#registerUpdateData"
+                                    data-bs-target="#offcanvasFormularios"
                                     aria-controls="offcanvasScrolling"
                                     @click="crearUsuario"
                                 >
@@ -98,67 +88,62 @@ export default {
                             </div>
                             <!-- end col-->
                         </div>
-                        <div id="buttons-table-preview">
-                            <table
-                                class="table dt-responsive nowrap w-100"
-                                id="tableUsers"
-                            >
+                            <Table>
                                 <thead class="table-light">
                                     <tr>
                                         <th>Id</th>
-                                        <th>Name</th>
+                                        <th class="all">Name</th>
                                         <th>Nick</th>
                                         <th>Email</th>
                                         <th>Estado</th>
-                                        <th class="table-action">
-                                            <a
-                                                href="javascript:void(0);"
-                                                class="action-icon"
-                                            >
-                                                <i class="mdi mdi-eye"></i
-                                            ></a>
-                                            <a
-                                                href="javascript:void(0);"
-                                                class="action-icon"
-                                            >
-                                                <i
-                                                    class="mdi mdi-square-edit-outline"
-                                                ></i
-                                            ></a>
-                                            <a
-                                                href="javascript:void(0);"
-                                                class="action-icon"
-                                            >
-                                                <i class="mdi mdi-delete"></i
-                                            ></a>
-                                        </th>
+                                        <th>Acciones</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr v-for="item in users" :key="item.id">
-                                        <td>{{ item.id }}</td>
-                                        <td>{{ item.name }}</td>
+                                    <tr v-for="item in props.users" :key="item.id">
+                                        <td>
+                                            <p class="text-body">{{ item.id }}</p>
+                                        </td>
+                                        <td>
+                                            <img
+                                                v-bind:src="item.profile_photo_path ? item.profile_photo_path : item.profile_photo_url"
+                                                v-bind:alt="item.name"
+                                                title="contact-img" class="rounded me-3" height="35"
+                                            />
+                                            <div class="m-0 d-inline-block align-middle font-16">
+                                                <p class="text-body">{{ item.name }}</p>
+                                            </div>
+                                        </td>
                                         <td>{{ item.nick }}</td>
                                         <td>{{ item.email }}</td>
-                                        <td>{{ item.status }}</td>
                                         <td>
+                                            <div :class="item.status === 'active' ? 'badge bg-success' : 'badge bg-danger'">
+                                                {{ item.status.toUpperCase() }}
+                                            </div>
+                                        </td>
+                                        <td class="table-action">
                                             <button
-                                                class="btn btn-info"
+                                                class="action-icon"
                                                 type="button"
                                                 data-bs-toggle="offcanvas"
-                                                data-bs-target="#registerUpdateData"
+                                                data-bs-target="#offcanvasFormularios"
                                                 aria-controls="offcanvasScrolling"
                                                 @click="editarUsuario(item)"
                                             >
                                                 <i
-                                                    class="mdi mdi-square-edit-outline"
+                                                    class="mdi mdi-square-edit-outline text-primary"
                                                 ></i>
                                             </button>
+                                            <a
+                                                href="javascript:void(0);"
+                                                class="action-icon"
+                                            >
+                                                <i class="mdi mdi-delete text-danger"></i
+                                                ></a>
                                         </td>
                                     </tr>
                                 </tbody>
-                            </table>
-                        </div>
+                            </Table>
                         <!-- <Table :list="usuarios" /> -->
                     </div>
                     <!-- end card-body-->
