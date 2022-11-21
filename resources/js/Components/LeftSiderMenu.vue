@@ -82,7 +82,7 @@ import { Inertia } from "@inertiajs/inertia";
 
                 <li class="side-nav-title side-nav-item">MODULOS</li>
 
-<!--                <li class="side-nav-item">
+                <!--                <li class="side-nav-item">
                     <Link :href="route('user.index')" class="side-nav-link">
                         <i class="mdi mdi-account-settings-outline"></i>
                         <span> Usuarios </span>
@@ -90,11 +90,13 @@ import { Inertia } from "@inertiajs/inertia";
                 </li>-->
 
                 <li class="side-nav-item">
-                    <a data-bs-toggle="collapse"
-                       href="#sidebarUsuarios"
-                       aria-expanded="false"
-                       aria-controls="sidebarUsuarios"
-                       class="side-nav-link">
+                    <a
+                        data-bs-toggle="collapse"
+                        href="#sidebarUsuarios"
+                        aria-expanded="false"
+                        aria-controls="sidebarUsuarios"
+                        class="side-nav-link"
+                    >
                         <i class="dripicons-user"></i>
                         <span> Gestion de Usuarios </span>
                         <span class="menu-arrow"></span>
@@ -102,15 +104,30 @@ import { Inertia } from "@inertiajs/inertia";
                     <div class="collapse" id="sidebarUsuarios">
                         <ul class="side-nav-second-level">
                             <li>
-                                <Link :href="route('user.index')" class="side-nav-link">
+                                <Link
+                                    :href="route('user.index')"
+                                    class="side-nav-link"
+                                >
                                     <i class="dripicons-user-group"></i>
                                     <span> Usuarios </span>
                                 </Link>
                             </li>
                             <li>
-                                <Link :href="route('tipouser.index')" class="side-nav-link">
+                                <Link
+                                    :href="route('tipouser.index')"
+                                    class="side-nav-link"
+                                >
                                     <i class="dripicons-user-id"></i>
                                     <span> Tipo de usuarios </span>
+                                </Link>
+                            </li>
+                            <li>
+                                <Link
+                                    :href="route('roles.index')"
+                                    class="side-nav-link"
+                                >
+                                    <i class="dripicons-user-id"></i>
+                                    <span> Gestion de Roles </span>
                                 </Link>
                             </li>
                         </ul>

@@ -39,15 +39,14 @@ Route::middleware([
     });
     //USUARIO
     Route::resource('user', UserController::class);
-
-    Route::get('/usuarios', [UserController::class, 'index'])->name('usuarios.index');
-    Route::get('/usuarios/{id}', [UserController::class, 'edit'])->name('usuarios.edit');
+    /* Route::get('/usuarios', [UserController::class, 'index'])->name('usuarios.index');
+    Route::get('/usuarios/{id}', [UserController::class, 'edit'])->name('usuarios.edit'); */
+    
     //TIPO DE USUARIOS
     Route::resource('tipouser', TipoUsuarioController::class);
 
     // ROLES
-    Route::get('/roles/permisos', [RoleController::class, 'index'])->name('roles.index');
-    Route::get('/roles', [RoleController::class, 'index'])->name('roles.index');
+    Route::resource('roles', RoleController::class);
 
     //PERMISOS
     Route::get('/permisos', [PermissionController::class, 'index'])->name('permiso.index');
